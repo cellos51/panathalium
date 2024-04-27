@@ -22,26 +22,26 @@ func alignY(transformVar, new_y) -> Transform3D:
 func getGravityUP() -> Vector3:
 	return  -gravity.normalized()
 
-func _ready():
+func _ready() -> void:
 	if gameNode.paused == false:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	gameNode.pause_game.connect(pause_game)
 
-func pause_game(pause):
+func pause_game(pause) -> void:
 	if pause == true:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func  _input(event):
+func  _input(event) -> void:
 	if event is InputEventMouseMotion and gameNode.paused == false:
 		mouse.x += -event.relative.x * CAMERA_SENSITIVITY
 		mouse.y = clamp(-event.relative.y * CAMERA_SENSITIVITY + mouse.y, -89, 89)
 		$CameraGimbal.rotation_degrees.x = mouse.y
 
-func _process(delta):
+func _process(delta) -> void:
 	if gameNode.paused == false:
-		gravity = Vector3(0, 0, 0) - transform.origin
+		gravity = Vector3(0,0,0) - transform.origin
 
 		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, delta * 16)
 		rotation = alignedTransform.basis.get_euler()

@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b02mahoy2oemv"]
+[gd_scene load_steps=12 format=3 uid="uid://b02mahoy2oemv"]
 
 [ext_resource type="Shader" path="res://shaders/psx_dither.gdshader" id="1_i74xb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_lf57b"]
 [ext_resource type="PackedScene" uid="uid://dj0dneyem7dkr" path="res://objects/player/player.tscn" id="3_w3oes"]
+[ext_resource type="PackedScene" uid="uid://c4mnc5nt5wl0x" path="res://objects/gravityFields/gravity_field.tscn" id="4_qccgp"]
+[ext_resource type="Script" path="res://objects/gravityFields/gravity_field.gd" id="5_2x452"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l15qp"]
 shader = ExtResource("1_i74xb")
@@ -60,3 +62,7 @@ mesh = SubResource("SphereMesh_lwjlw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/MeshInstance3D/StaticBody3D"]
 shape = SubResource("SphereShape3D_11rcb")
+
+[node name="GravityField" parent="DitheringContainer/DitheringViewport" instance=ExtResource("4_qccgp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8166, 13.4614, 1.5036)
+script = ExtResource("5_2x452")
