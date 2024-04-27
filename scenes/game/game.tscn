@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://b02mahoy2oemv"]
+
+[ext_resource type="Shader" path="res://shaders/psx_dither.gdshader" id="1_i74xb"]
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_lf57b"]
+[ext_resource type="PackedScene" uid="uid://dj0dneyem7dkr" path="res://objects/player/player.tscn" id="3_w3oes"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l15qp"]
+shader = ExtResource("1_i74xb")
+shader_parameter/color_depth = 5
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 4
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i6qv4"]
+
+[sub_resource type="Sky" id="Sky_fl215"]
+sky_material = SubResource("ProceduralSkyMaterial_i6qv4")
+
+[sub_resource type="Environment" id="Environment_24nle"]
+background_mode = 2
+sky = SubResource("Sky_fl215")
+
+[sub_resource type="SphereMesh" id="SphereMesh_lwjlw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_11rcb"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_lf57b")
+
+[node name="DitheringContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_l15qp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="DitheringViewport" type="SubViewport" parent="DitheringContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DitheringContainer/DitheringViewport"]
+environment = SubResource("Environment_24nle")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DitheringContainer/DitheringViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.295458, 0.955356, 0, -0.955356, 0.295458, 0, 4.9594, 0)
+shadow_enabled = true
+
+[node name="Player" parent="DitheringContainer/DitheringViewport" instance=ExtResource("3_w3oes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.82272, 0)
+
+[node name="Map" type="Node3D" parent="DitheringContainer/DitheringViewport"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
+transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0)
+mesh = SubResource("SphereMesh_lwjlw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/MeshInstance3D/StaticBody3D"]
+shape = SubResource("SphereShape3D_11rcb")
