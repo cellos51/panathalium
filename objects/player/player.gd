@@ -11,7 +11,6 @@ var gravity = Vector3(0, -1, 0)
 var alignedTransform = Transform3D()
 
 var mouse = Vector2()
-var t = 0
 
 func alignY(transformVar, new_y) -> Transform3D:
 	var newTransform = transformVar
@@ -42,8 +41,6 @@ func  _input(event):
 
 func _process(delta):
 	if gameNode.paused == false:
-		t += delta
-
 		gravity = Vector3(0, 0, 0) - transform.origin
 
 		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, delta * 16)
