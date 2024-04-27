@@ -46,7 +46,7 @@ func _process(delta):
 
 		gravity = Vector3(0, 0, 0) - transform.origin
 
-		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, 1)
+		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, delta * 16)
 		rotation = alignedTransform.basis.get_euler()
 		rotate_object_local(Vector3(0,1,0), deg_to_rad(mouse.x))
 
