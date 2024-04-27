@@ -7,7 +7,7 @@ extends CharacterBody3D
 
 @onready var gameNode = get_node("/root/Game")
 
-var gravity = Vector3(0, 1, 0)
+var gravity = Vector3(0, -1, 0)
 var alignedTransform = Transform3D()
 
 var mouse = Vector2()
