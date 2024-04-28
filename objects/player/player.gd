@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@export var gravity = Vector3(0, -9.8, 0)
+
 @export var SPEED: float = 2.0 
 @export var SPRINT_MULTIPLIER: float = 2.0
 
@@ -7,7 +9,6 @@ extends CharacterBody3D
 
 @onready var gameNode = get_node("/root/Game")
 
-var gravity = Vector3(0, -1, 0)
 var alignedTransform = Transform3D()
 
 var mouse = Vector2()
@@ -41,9 +42,7 @@ func  _input(event) -> void:
 
 func _process(delta) -> void:
 	if gameNode.paused == false:
-		gravity = Vector3(0,0,0) - transform.origin
-
-		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, delta * 16)
+		alignedTransform.basis = alignedTransform.basis.orthonormalized().slerp(alignY(alignedTransform, getGravityUP()).basis, delta * 8)
 		rotation = alignedTransform.basis.get_euler()
 		rotate_object_local(Vector3(0,1,0), deg_to_rad(mouse.x))
 

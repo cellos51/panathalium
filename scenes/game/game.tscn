@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b02mahoy2oemv"]
+[gd_scene load_steps=13 format=3 uid="uid://b02mahoy2oemv"]
 
 [ext_resource type="Shader" path="res://shaders/psx_dither.gdshader" id="1_i74xb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_lf57b"]
 [ext_resource type="PackedScene" uid="uid://dj0dneyem7dkr" path="res://objects/player/player.tscn" id="3_w3oes"]
 [ext_resource type="PackedScene" uid="uid://c4mnc5nt5wl0x" path="res://objects/gravityFields/gravity_field.tscn" id="4_qccgp"]
-[ext_resource type="Script" path="res://objects/gravityFields/gravity_field.gd" id="5_2x452"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l15qp"]
 shader = ExtResource("1_i74xb")
@@ -24,6 +23,10 @@ sky = SubResource("Sky_fl215")
 [sub_resource type="SphereMesh" id="SphereMesh_lwjlw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_11rcb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4vfon"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_58bpu"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_lf57b")
@@ -49,20 +52,58 @@ environment = SubResource("Environment_24nle")
 transform = Transform3D(1, 0, 0, 0, 0.295458, 0.955356, 0, -0.955356, 0.295458, 0, 4.9594, 0)
 shadow_enabled = true
 
-[node name="Player" parent="DitheringContainer/DitheringViewport" instance=ExtResource("3_w3oes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.82272, 0)
+[node name="Player" parent="DitheringContainer/DitheringViewport" groups=["GravityAffected"] instance=ExtResource("3_w3oes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.230364, 9.85596, 0.186594)
 
 [node name="Map" type="Node3D" parent="DitheringContainer/DitheringViewport"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
-transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0)
+[node name="Sphere" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
+transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, -20.7621, 15.8966, 19.9423)
 mesh = SubResource("SphereMesh_lwjlw")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/Sphere"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Sphere/StaticBody3D"]
 shape = SubResource("SphereShape3D_11rcb")
 
+[node name="Cube" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
+transform = Transform3D(16.1703, 0, 0, 0, 1.00234, 0, 0, 0, 16.1703, 0, 7.07915, 0)
+mesh = SubResource("BoxMesh_4vfon")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Cube/StaticBody3D"]
+shape = SubResource("BoxShape3D_58bpu")
+
+[node name="Cube2" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
+transform = Transform3D(-7.06827e-07, -1.00234, 0, 16.1703, -4.38138e-08, 0, 0, 0, 16.1703, 8.11762, 11.2632, -13.6912)
+mesh = SubResource("BoxMesh_4vfon")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/Cube2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Cube2/StaticBody3D"]
+shape = SubResource("BoxShape3D_58bpu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Cube2/StaticBody3D"]
+shape = SubResource("BoxShape3D_58bpu")
+
+[node name="Cube3" type="MeshInstance3D" parent="DitheringContainer/DitheringViewport/Map"]
+transform = Transform3D(-16.1703, 8.76276e-08, 0, -1.41365e-06, -1.00234, 0, 0, 0, 16.1703, 1.8546, 18.4628, -28.5264)
+mesh = SubResource("BoxMesh_4vfon")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DitheringContainer/DitheringViewport/Map/Cube3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Cube3/StaticBody3D"]
+shape = SubResource("BoxShape3D_58bpu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DitheringContainer/DitheringViewport/Map/Cube3/StaticBody3D"]
+shape = SubResource("BoxShape3D_58bpu")
+
 [node name="GravityField" parent="DitheringContainer/DitheringViewport" instance=ExtResource("4_qccgp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8166, 13.4614, 1.5036)
-script = ExtResource("5_2x452")
+transform = Transform3D(-4.26628e-07, -5.40937, 0, 16.7956, 2.38419e-07, 0, 0, 0, 13.5467, 4.85108, 11.0459, -14.0559)
+
+[node name="GravityField2" parent="DitheringContainer/DitheringViewport" instance=ExtResource("4_qccgp")]
+transform = Transform3D(-16.7956, -1.96728e-09, 0, -1.16079e-06, -5.40937, 0, 0, 0, 13.5467, 2.28741, 15.2839, -27.9528)
+
+[node name="GravityField3" parent="DitheringContainer/DitheringViewport" instance=ExtResource("4_qccgp")]
+transform = Transform3D(16.7956, 4.7487e-07, 0, -3.07529e-07, 5.40937, 0, 0, 0, 13.5467, 0.033865, 10.1884, -1.30034)
