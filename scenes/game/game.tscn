@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b02mahoy2oemv"]
+[gd_scene load_steps=15 format=3 uid="uid://b02mahoy2oemv"]
 
 [ext_resource type="Shader" path="res://shaders/psx_dither.gdshader" id="1_i74xb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_lf57b"]
 [ext_resource type="PackedScene" uid="uid://dj0dneyem7dkr" path="res://objects/player/player.tscn" id="3_w3oes"]
 [ext_resource type="PackedScene" uid="uid://c4mnc5nt5wl0x" path="res://objects/gravityFields/gravity_field.tscn" id="4_qccgp"]
+[ext_resource type="PackedScene" uid="uid://c2vlf1nps081k" path="res://objects/wood_dock.tscn" id="5_eaigc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l15qp"]
 shader = ExtResource("1_i74xb")
@@ -27,6 +28,9 @@ sky = SubResource("Sky_fl215")
 [sub_resource type="BoxMesh" id="BoxMesh_4vfon"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_58bpu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nihpk"]
+size = Vector3(5.63943, 3.56696, 22.3013)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_lf57b")
@@ -150,3 +154,12 @@ transform = Transform3D(16.0799, 9.60122e-07, 0, -5.28745e-09, 0.941686, 9.05584
 
 [node name="GravityField7" parent="DitheringContainer/DitheringViewport" instance=ExtResource("4_qccgp")]
 transform = Transform3D(16.1703, 9.65516e-07, 0, -5.89609e-10, 0.105008, 8.41418, 1.83435e-08, -3.26694, 0.270454, 1.80157e-15, 34.136, 27.2893)
+
+[node name="WoodDock" parent="." instance=ExtResource("5_eaigc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8237, 6.98046, -2.241)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WoodDock"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WoodDock/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00471497, -1.42398, -10.6506)
+shape = SubResource("BoxShape3D_nihpk")

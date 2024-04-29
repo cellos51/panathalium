@@ -28,6 +28,10 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 move_left={

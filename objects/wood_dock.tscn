@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2vlf1nps081k"]
+
+[ext_resource type="PackedScene" uid="uid://ckdtachgctt8x" path="res://models/WoodDock.glb" id="1_7y207"]
+[ext_resource type="Shader" path="res://shaders/psx_unlit.gdshader" id="2_23d27"]
+[ext_resource type="Texture2D" uid="uid://bu475pe11jtwe" path="res://models/WoodDock_woodplanks.jpg" id="3_jda2i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqtir"]
+render_priority = 0
+shader = ExtResource("2_23d27")
+shader_parameter/jitter = 0.775
+shader_parameter/jitter_z_coordinate = true
+shader_parameter/jitter_depth_independent = true
+shader_parameter/affine_texture_mapping = false
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/albedo_color = Color(0.709804, 0.709804, 0.709804, 1)
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/texture_size = Vector2(1, 1)
+shader_parameter/albedo = ExtResource("3_jda2i")
+
+[node name="WoodDock" instance=ExtResource("1_7y207")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_hqtir")
+
+[node name="Cube_001" parent="." index="1"]
+surface_material_override/0 = SubResource("ShaderMaterial_hqtir")
+
+[node name="Cube_002" parent="." index="2"]
+surface_material_override/0 = SubResource("ShaderMaterial_hqtir")
+
+[node name="Cube_003" parent="." index="3"]
+surface_material_override/0 = SubResource("ShaderMaterial_hqtir")
+
+[node name="Cube_004" parent="." index="4"]
+surface_material_override/0 = SubResource("ShaderMaterial_hqtir")
