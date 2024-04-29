@@ -50,6 +50,7 @@ func _process(delta) -> void:
 		direction *= SPEED
 		if Input.is_action_pressed("sprint") == true:
 			direction *= SPRINT_MULTIPLIER
+
 		velocity = transform.basis * Vector3(direction.x, 0, direction.y)
 		velocity += gravity / 10
 		move_and_slide()
